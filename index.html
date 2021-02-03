@@ -2,11 +2,34 @@
 <html>
 <head>
 <title>Page Title</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+var token = 'IGQVJWdzlEenpmR0F2YmJKM3l4bUhfWG1JMU5VRV9VLUo0WUdJbFhSenZA2Tkstd05sd3luek5wSng5dzNkVjZAzdm4waTRIRHE1UFVnYmlQanRaNmlZATUt4cHJ6NlBpeVFIemtlQlFIWjFuWFNmeDVsTgZDZD',
+    hashtag='snowy', // hashtag without # symbol
+    num_photos = 10;
+ 
+$.ajax({
+	url: 'https://api.instagram.com/v1/tags/' + hashtag + '/media/recent',
+	dataType: 'jsonp',
+	type: 'GET',
+	data: {access_token: token, count: num_photos},
+	success: function(data){
+		console.log(data);
+		for(x in data.data){
+			$('.myUl').append('<li><img src="'+data.data[x].images.standard_resolution.url+'"></li>');  
+		}
+	},
+	error: function(data){
+		console.log(data);
+	}
+});
+</script>
 </head>
 <body>
 
 <h1>This is a Heading</h1>
 <p>This is a paragraph.</p>
+<ul class="myUl"></ul>
 
 </body>
 </html>
